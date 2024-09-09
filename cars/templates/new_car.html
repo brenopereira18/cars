@@ -1,0 +1,15 @@
+{% extends "base.html" %} {% block content %}
+<!-- 
+O método POST é usado para enviar dados ao servidor, como para criar ou atualizar recursos. POST é comum para formulários que alteram dados no servidor, como criar ou atualizar um registro em um banco de dados.
+enctype="multipart/form-data": Define o tipo de codificação de dados que o formulário deve usar ao enviar arquivos (como imagens ou documentos). É necessário quando o formulário contém elementos <input> do tipo file para upload de arquivos.    
+-->
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <!-- protege contra ataques de rack -->
+
+  <table>
+    {{ form.as_table }}
+  </table>
+  <input type="submit" value="Cadastrar" class="btn btn-primary"/>
+</form>
+{% endblock %}

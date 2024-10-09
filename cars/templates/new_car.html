@@ -1,15 +1,205 @@
 {% extends "base.html" %} {% block content %}
-<!-- 
-O método POST é usado para enviar dados ao servidor, como para criar ou atualizar recursos. POST é comum para formulários que alteram dados no servidor, como criar ou atualizar um registro em um banco de dados.
-enctype="multipart/form-data": Define o tipo de codificação de dados que o formulário deve usar ao enviar arquivos (como imagens ou documentos). É necessário quando o formulário contém elementos <input> do tipo file para upload de arquivos.    
--->
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <!-- protege contra ataques de rack -->
 
-  <table>
-    {{ form.as_table }}
-  </table>
-  <input type="submit" value="Cadastrar" class="btn btn-primary"/>
-</form>
+<style>
+  .form-container {    
+    margin: 0 auto;
+    width: 620px;
+    border-radius: 0.75rem;
+    background-color: #10375c;
+    padding: 2rem;
+    color: rgba(243, 244, 246, 1);
+  }
+
+  .title {
+    text-align: center;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+  }
+
+  .form {
+    margin-top: 1.5rem;
+  }
+
+  .input-group {
+    margin-top: 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .form-group {
+    margin-top: 0.6rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  label {
+    display: block;
+    color: rgba(156, 163, 175, 1);
+    margin-bottom: 4px;
+  }
+
+  .input-group input {
+    width: 90%;
+    border-radius: 0.375rem;
+    border: 1px solid rgb(159, 167, 179);
+    outline: 0;
+    background-color: #10375c;
+    padding: 0.75rem 1rem;
+    color: rgba(243, 244, 246, 1);
+  }
+
+  .input-group input:focus {
+    border-color: rgba(167, 139, 250);
+  }
+
+  .form-group input[type="file"] {
+    width: 100%;
+    background-color: #10375c;
+    cursor: pointer;
+  }
+
+  .form-group input[type="file"]::file-selector-button {
+    background-color: #10375c;
+    color: rgba(243, 244, 246, 1);
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid rgb(159, 167, 179);
+  }
+
+  .input-group select {
+    width: 95.5%;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgb(159, 167, 179);
+    border-radius: 0.375rem;
+    background-color: #10375c;
+    color: rgba(243, 244, 246, 1);
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+  }
+
+  .input-group select:focus {
+    box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.5);
+  }
+
+  .input-group textarea {
+    padding: 0.75rem 1rem;    
+    border: 1px solid rgb(159, 167, 179);
+    border-radius: 4px;
+    width: 90%;
+    height: 100px; 
+    resize: none; 
+    background-color: #10375c;
+    color: rgba(243, 244, 246, 1);
+}
+
+  .sign {
+    margin-top: 32px;
+    display: block;
+    width: 100%;
+    background-color: rgba(167, 139, 250, 1);
+    padding: 0.75rem;
+    text-align: center;
+    color: rgba(17, 24, 39, 1);
+    border: none;
+    border-radius: 0.375rem;
+    font-weight: 600;
+  }
+</style>
+
+<div class="form-container">
+  <p class="title">Cadastrar Carro</p>
+  <form method="post" enctype="multipart/form-data" class="form">
+    {% csrf_token %}
+
+    <div class="input-group">
+      <label for="model">Modelo:</label>
+      <input
+        type="text"
+        name="model"
+        id="model"
+        value="{{ form.model.value|default:'' }}"
+        placeholder="Informe o modelo"
+      />
+      <div class="error">{{ form.model.errors }}</div>
+    </div>
+
+    <div class="input-group">
+      <label for="brand">Marca:</label>
+      {{ form.brand }}
+      <div class="error">{{ form.brand.errors }}</div>
+    </div>
+
+    <div class="input-group">
+      <label for="factory_year">Ano de Fabricação:</label>
+      <input
+        type="text"
+        name="factory_year"
+        id="factory_year"
+        value="{{ form.factory_year.value|default:'' }}"
+        placeholder="Informe o ano de fabricação"
+      />
+      <div class="error">{{ form.factory_year.errors }}</div>
+    </div>
+
+    <div class="input-group">
+      <label for="model_year">Ano do Modelo:</label>
+      <input
+        type="text"
+        name="model_year"
+        id="model_year"
+        value="{{ form.model_year.value|default:'' }}"
+        placeholder="Informe o ano do modelo"
+      />
+      <div class="error">{{ form.model_year.errors }}</div>
+    </div>
+
+    <div class="input-group">
+      <label for="plate">Placa:</label>
+      <input
+        type="text"
+        name="plate"
+        id="plate"
+        value="{{ form.plate.value|default:'' }}"
+        placeholder="Informe a placa"
+      />
+      <div class="error">{{ form.plate.errors }}</div>
+    </div>
+
+    <div class="input-group">
+      <label for="value">Valor:</label>
+      <input
+        type="number"
+        name="value"
+        id="value"
+        value="{{ form.value.value|default:'' }}"
+        placeholder="Informe o valor"
+      />
+      <div class="error">{{ form.value.errors }}</div>
+    </div>
+
+    <div class="form-group">
+      <label for="photo">Foto:</label>
+      <input type="file" name="photo" id="id_photo" class="form-control" />
+    </div>
+
+    <div class="input-group">
+      <label for="description">Descrição:</label>
+      <textarea
+        name="description"
+        id="description"        
+        rows="3"
+      >
+          {{ form.description.value|default:'' }}</textarea
+      >
+      <div class="error">{{ form.description.errors }}</div>
+    </div>
+
+    <button type="submit" class="sign">Cadastrar</button>
+  </form>
+</div>
 {% endblock %}

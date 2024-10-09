@@ -11,23 +11,37 @@
         color: #333;
         margin: 0;
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
       }
 
       header {
-        background-color: #0096c7;
+        padding: 0 60px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #10375c;
         color: #fff;
-        text-align: center;
+      }
+
+      h1 {
+        padding-left: 20px;
+      }
+
+      main {
+        flex: 1;
+        padding: 20px;
       }
 
       footer {
-        background-color: #ccc;
-        color: #333;
+        background-color: #10375c;
+        color: #fff;
         padding: 20px;
         text-align: center;
       }
 
       nav {
-        background-color: #0096c7;
         color: #fff;
         height: 50px;
         display: flex;
@@ -67,23 +81,24 @@
       }
     </style>
   </head>
+
   <body>
     <header>
+      <h1>MultiCars</h1>
       <nav>
         <ul>
           {% if user.is_authenticated %}
-            <li>Olá, {{ user.username }}</li>
-            <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
-          {% endif %}
-          {% if not user.is_authenticated %}
-            <li><a href="{% url 'register' %}">Cadastre-se</a></li>
-            <li><a href="{% url 'login' %}">Login</a></li>
+          <li>Olá, {{ user.username }}</li>
+          <li><a href="{% url 'new_car' %}">Cadastrar Carro</a></li>
+          {% endif %} {% if not user.is_authenticated %}
+          <li><a href="{% url 'register' %}">Cadastre-se</a></li>
+          <li><a href="{% url 'login' %}">Login</a></li>
           {% endif %}
 
           <li><a href="{% url 'cars_list' %}">Carros</a></li>
 
-          {% if user.is_authenticated %}            
-            <li><a href="{% url 'logout' %}">Sair</a></li>
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Sair</a></li>
           {% endif %}
         </ul>
       </nav>
@@ -92,7 +107,7 @@
     <main>{% block content %} {% endblock %}</main>
 
     <footer>
-      <p>&copy; 2023 PycodeBR Multimarcas</p>
+      <p>&copy; 2024 MultiCars</p>
     </footer>
   </body>
 </html>
